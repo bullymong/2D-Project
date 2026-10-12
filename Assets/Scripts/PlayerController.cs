@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
         {
             Flip();
         }
+
         //Jumping
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
@@ -42,7 +43,7 @@ public class PlayerController : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
         }
         //Continue Jumping
-        if(Input.GetButtonDown("Jump") && isJumping == true)
+        if(Input.GetButton("Jump") && isJumping == true)
         {
             if(jumpTimeCounter > 0)
             {
@@ -55,7 +56,7 @@ public class PlayerController : MonoBehaviour
             }
         }
         //Stop Jumping
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonUp("Jump"))
         {
             isJumping = false;
 
