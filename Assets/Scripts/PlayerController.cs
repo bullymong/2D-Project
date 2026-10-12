@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
     public float speed;
     public float horizontal;
     public float jumpForce;
+    public Animator anim;
 
     [Header ("Grounding")]
     public Transform groundCheck;
@@ -30,6 +31,7 @@ public class PlayerController : MonoBehaviour
     {
         //Movement
         horizontal = Input.GetAxisRaw("Horizontal");
+        anim.SetFloat("horizontal", Mathf.Abs(horizontal));
         if(horizontal > .1f && facingDirection < 0 || horizontal < -.1f && facingDirection > 0)
         {
             Flip();
@@ -38,6 +40,7 @@ public class PlayerController : MonoBehaviour
         //Jumping
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
+            anim.SetTrigger("jump");
             isJumping = true;
             jumpTimeCounter = maxJumpTime;
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
