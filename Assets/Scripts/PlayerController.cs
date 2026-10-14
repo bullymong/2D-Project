@@ -4,6 +4,7 @@ public class PlayerController : MonoBehaviour
 {
     public Rigidbody2D rb;
     public float speed;
+    public float sprintSpeed;
     public float horizontal;
     public float jumpForce;
     public Animator anim;
@@ -12,6 +13,9 @@ public class PlayerController : MonoBehaviour
     public Transform groundCheck;
     public float groundCheckRadius;
     public LayerMask groundLayer;
+    public Transform platformCheck;
+    public float platformCheckRadius;
+    public LayerMask platformLayer;
 
     [Header("Hold to Jump Settings")]
     public float maxJumpTime = .3f;
@@ -35,6 +39,10 @@ public class PlayerController : MonoBehaviour
         if(horizontal > .1f && facingDirection < 0 || horizontal < -.1f && facingDirection > 0)
         {
             Flip();
+        }
+        if (Input.GetKeyDown("left shift"))
+        {
+            speed = speed + sprintSpeed;
         }
 
         //Jumping
@@ -76,7 +84,7 @@ public class PlayerController : MonoBehaviour
 
     bool IsGrounded()
     {
-        return Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+        return Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer) || Physics2D.OverlapCircle(platformCheck.position, platformCheckRadius, platformLayer);
 
     }
 
