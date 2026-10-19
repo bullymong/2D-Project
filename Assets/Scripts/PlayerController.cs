@@ -4,10 +4,22 @@ public class PlayerController : MonoBehaviour
 {
     public Rigidbody2D rb;
     public float speed;
+    public float defaultSpeed;
     public float sprintSpeed;
+    public float maxSpeed;
     public float horizontal;
     public float jumpForce;
     public Animator anim;
+    private Collider targetCollider;
+
+    [Header("Wall Check")]
+    public Transform wallCheck;
+    public float wallCheckRadius;
+    public LayerMask wallLayer;
+
+    [Header("Wall Movement")]
+    public float wallSlideSpeed = 2;
+    bool isWallSliding;
 
     [Header ("Grounding")]
     public Transform groundCheck;
@@ -40,9 +52,17 @@ public class PlayerController : MonoBehaviour
         {
             Flip();
         }
-        if (Input.GetKeyDown("left shift"))
+        if (Input.GetKey("left shift"))
         {
-            speed = speed + sprintSpeed;
+            if (speed < maxSpeed)
+            {
+                speed = speed + sprintSpeed;
+            }
+           
+        }
+        else
+        {
+            speed = defaultSpeed;
         }
 
         //Jumping
@@ -72,6 +92,7 @@ public class PlayerController : MonoBehaviour
             isJumping = false;
 
         }
+        ProcessWallSlide();
 
 
     }
@@ -95,5 +116,23 @@ public class PlayerController : MonoBehaviour
         Vector3 scale = transform.localScale;
         scale.x *= -1;
         transform.localScale = scale;
+    }
+
+    private bool WallCheck()
+    {
+        return Physics2D.OverlapCircle(wallCheck.position, wallCheckRadius, wallLayer);
+    }
+
+    private void ProcessWallSlide()
+    {
+        if (!IsGrounded() && WallCheck() && horizontal != 0)
+        {
+            isWallSliding = true;
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, Mathf.Max(rb.linearVelocity.y, -wallSlideSpeed));
+        }
+        else
+        {
+            isWallSliding = false;
+        }
     }
 }
