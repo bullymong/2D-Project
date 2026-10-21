@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour
         ProcessWallSlide();
         ProcessWallJump();
         //Movement
-        horizontal = Input.GetAxis("Horizontal");
+        horizontal = Input.GetAxisRaw("Horizontal");
         anim.SetFloat("horizontal", Mathf.Abs(horizontal));
         if(horizontal > .1f && facingDirection < 0 || horizontal < -.1f && facingDirection > 0)
         {
@@ -75,6 +75,8 @@ public class PlayerController : MonoBehaviour
         //Sliding
         if (Input.GetKey("left shift"))
         {
+            Debug.Log("Transition to slide");
+            anim.SetTrigger("slide");
             if (speed < maxSpeed)
             {
                 speed = speed + sprintSpeed;
@@ -84,7 +86,10 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            Debug.Log("Transition to idle");
             speed = defaultSpeed;
+            anim.SetTrigger("walk");
+
             TryStandUp();
         }
 
