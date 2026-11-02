@@ -1,0 +1,29 @@
+using UnityEngine;
+
+public class CamController : MonoBehaviour
+{
+
+    public Transform player;
+    public float smoothSpeed;
+    private Vector3 targetPos, newPos;
+    public Vector3 minPos, maxPos;
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+ 
+
+    // Update is called once per frame
+    void LateUpdate()
+    {
+        if (transform.position != player.position)
+        {
+            targetPos = player.position;
+
+            Vector3 camBoundaryPos = new Vector3(
+                Mathf.Clamp(targetPos.x, minPos.x, maxPos.x),
+                Mathf.Clamp(targetPos.y, minPos.y, maxPos.y),
+                Mathf.Clamp(targetPos.z, minPos.z, maxPos.z));
+
+            newPos = Vector3.Lerp(transform.position, camBoundaryPos, smoothSpeed);
+            transform.position = newPos;
+        }
+    }
+}
