@@ -7,6 +7,7 @@ TagManager:
   - Hazard
   - Hazard2
   - Hazard3
+  - Object
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   - Ground
   - Platform
   - Wall
-  - 
+  - Object
   - 
   - 
   - 
