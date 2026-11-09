@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 3
   tags:
   - Hazard
+  - Hazard2
+  - Hazard3
   layers:
   - Default
   - TransparentFX

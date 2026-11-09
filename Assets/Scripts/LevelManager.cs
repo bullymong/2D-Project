@@ -5,7 +5,9 @@ public class LevelManager : MonoBehaviour
     public static LevelManager instance;
 
     public Transform respawnPoint;
-    public GameObject playerPrefab;
+    public Transform respawnPoint2;
+    public Transform respawnPoint3;
+    public Transform player;
 
     private void Awake()
     {
@@ -14,6 +16,14 @@ public class LevelManager : MonoBehaviour
 
     public void Respawn()
     {
-        Instantiate(playerPrefab, respawnPoint.position, Quaternion.identity);
+       player.position = respawnPoint.position;
+    }
+     public void Respawn2()
+    {
+       player.position = respawnPoint2.position;
+    }
+    public void Respawn3()
+    {
+       player.position = respawnPoint3.position;
     }
 }
