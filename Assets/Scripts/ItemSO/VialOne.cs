@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public class VialOne : MonoBehaviour
 {
@@ -7,6 +8,8 @@ public class VialOne : MonoBehaviour
    public Animator anim;
 
    public int quantity;
+   public static event Action<ItemSO, int> OnItemLooted;
+
 
    private void OnValidate()
    {
@@ -21,6 +24,7 @@ public class VialOne : MonoBehaviour
 	   if (collision.CompareTag("Player"))
 	   {
 		   anim.Play("VialPickup");
+			OnItemLooted?.Invoke(itemSO, quantity);
 		   Destroy(gameObject, .5f);
 	   }
    }
