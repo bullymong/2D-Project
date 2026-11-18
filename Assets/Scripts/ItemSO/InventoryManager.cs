@@ -27,4 +27,12 @@ public class InventoryManager : MonoBehaviour
             
         }
     }
+
+    public void UseItem(InventorySlot slot)
+    {
+        if(slot.itemSO != null && slot.quantity >= 0)
+        {
+            Debug.Log("Trying to use item: " + slot.itemSO.itemName);
+        }
+    }
 }
